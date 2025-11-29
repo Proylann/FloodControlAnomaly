@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PH Flood Control: Civic Insight and Accountability</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <style>
+        :root {
+            --primary: #004d99;
+            --secondary: #28a745;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --light-bg: #f8fafc;
+            --text: #2d3748;
+            --border: #e2e8f0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, sans-serif;
+            color: var(--text);
+            background-color: #fff;
+            scroll-behavior: smooth;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: var(--primary);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 1.4rem;
+            letter-spacing: -0.5px;
+        }
+        .nav-link {
+            color: rgba(255, 255, 255, 0.85) !important;
+            font-weight: 500;
+            margin: 0 0.5rem;
+            transition: color 0.2s;
+        }
+        .nav-link:hover {
+            color: #ffc107 !important;
+        }
+
+        /* Hero */
+        .hero-section {
+            background: linear-gradient(rgba(0, 30, 60, 0.7), rgba(0, 30, 60, 0.7)),
+                        url('https://images.unsplash.com/photo-1549487928-8d14d88e0018?ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80') center/cover no-repeat;
+            height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            padding: 0 1rem;
+        }
+        .hero-section h1 {
+            font-size: clamp(2rem, 5vw, 3.25rem);
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 1rem;
+        }
+        .hero-section p.lead {
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin: 0 auto 1.5rem;
+            opacity: 0.95;
+        }
+        .hero-section .btn {
+            padding: 0.75rem 2rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+        }
+
+        /* Sections */
+        section {
+            padding: 5rem 0;
+        }
+        h2 {
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 2rem;
+            position: relative;
+            display: inline-block;
+        }
+        h2:after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--secondary);
+            border-radius: 2px;
+        }
+        .container {
+            max-width: 1200px;
+        }
+
+        /* Issue Cards */
+        .issue-card {
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.75rem;
+            height: 100%;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background: #fff;
+        }
+        .issue-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+        }
+        .issue-card h5 {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .issue-card h5 i {
+            font-size: 1.25rem;
+        }
+
+        /* Card-specific borders */
+        .card-corruption h5 { border-left: 4px solid var(--danger); padding-left: 12px; }
+        .card-planning h5 { border-left: 4px solid var(--warning); padding-left: 12px; }
+        .card-solutions h5 { border-left: 4px solid var(--secondary); padding-left: 12px; }
+
+        /* --- Replaced Carousel with a flexible scrollable "card track" --- */
+        .news-section {
+            position: relative;
+        }
+        .news-track {
+            display: flex;
+            gap: 1.5rem;
+            overflow-x: auto;
+            padding: 1rem 0.5rem;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+        .news-card {
+            flex: 0 0 300px;
+            scroll-snap-align: start;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            background: #fff;
+        }
+        .news-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+        .news-card .caption {
+            padding: 1rem;
+            text-align: left;
+        }
+        .news-card .caption h5 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            line-height: 1.25;
+        }
+        .news-card .caption small {
+            color: #6c757d;
+            font-size: 0.85rem;
+        }
+
+        .news-controls {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100%;
+            pointer-events: none;
+        }
+        .news-controls .btn {
+            pointer-events: all;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0,0,0,0.4);
+            color: white;
+            border: none;
+        }
+        .news-controls .prev { position: absolute; left: -10px; }
+        .news-controls .next { position: absolute; right: -10px; }
+
+        @media (max-width: 768px) {
+            .hero-section h1 {
+                font-size: 2.25rem;
+            }
+            section {
+                padding: 3rem 0;
+            }
+            h2 {
+                font-size: 1.75rem;
+            }
+            .news-card { flex: 0 0 280px; }
+            .news-controls .prev { left: 4px; }
+            .news-controls .next { right: 4px; }
+        }
+
+        /* Human & Economic Cost Images */
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        .image-grid img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        .image-caption {
+            font-size: 0.85rem;
+            text-align: center;
+            margin-top: 0.5rem;
+            color: #6c757d;
+        }
+
+        /* Footer */
+        footer {
+            background: #1a202c;
+            color: #cbd5e0;
+            padding: 2.5rem 0 1.5rem;
+            margin-top: 4rem;
+        }
+        footer p {
+            margin: 0.25rem 0;
+            font-size: 0.95rem;
+        }
+        footer .text-muted {
+            color: #a0aec0 !important;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-water me-2"></i>Flood Control Project Accountability
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="#overview">Overview</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#visuals">Visuals</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#issues">Issues</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#recent-news">Recent News</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <header class="hero-section">
+        <div>
+            <h1>From Crisis to Accountability</h1>
+            <p class="lead">Analyzing corruption and governance failures in Philippine flood control projects.</p>
+            <a href="#overview" class="btn btn-success btn-lg">Read More</a>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <!-- Overview (Expanded Article) -->
+        <section id="overview">
+            <div class="text-center mb-5">
+                <h2>The Philippine Flood Crisis: Why It Persists</h2>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <p class="fs-5">
+                        The Philippines’ annual flood crisis is not merely a consequence of typhoons or heavy monsoon rains—it is a direct result of systemic corruption, institutional neglect, and a profound lack of accountability within its infrastructure governance. For decades, billions have been allocated for flood mitigation, yet communities continue to drown—not because of nature’s wrath, but because of man-made failure.
+                    </p>
+                    <p class="text-muted">
+                        In July 2025, President Ferdinand Marcos Jr. stunned the nation by revealing that <strong>only 15 contractors out of 2,000 had cornered nearly 20% of over ₱500 billion in flood control spending</strong> since 2022. What followed was not just an audit—but a national reckoning. Senate hearings exposed “ghost projects” worth hundreds of millions, contractors who never built anything, and officials who signed off on non-existent structures.
+                    </p>
+                    <p class="mt-4">
+                        As Senator Risa Hontiveros put it during a Blue Ribbon Committee hearing: “May mga proyekto tuloy na imbes makabawas sa baha, nagdulot pa ng mas malaking baha… May ghost projects din daw na hindi makita, hindi mahanap ng LGU kahit ngayon.” (“There are projects that instead of reducing floods, caused bigger ones… There are ghost projects that even LGUs cannot find today.”)
+                    </p>
+                    <p>
+                        DPWH Secretary Vince Dizon, when asked if there was a master plan, simply replied: <strong>“Wala po.”</strong> No unified strategy. No watershed-level coordination. No oversight. Just contracts—awarded, paid, and vanished.
+                    </p>
+                    <p>
+                        The human cost is staggering. A ₱100 million project in Lucena, Quezon, collapsed during a storm, killing families. In Bulacan, President Marcos held up a report for a ₱55.7 million riverwall project—only to reveal it didn’t exist. “A lousy flood control project that collapsed during the flood that killed a family — I mean, how can you live with that?” he said in his podcast. “I can’t live with it.”
+                    </p>
+                    <p>
+                        The economic toll is equally devastating. Finance Secretary Ralph Recto estimated that anomalous flood projects cost the economy <strong>₱118 billion between 2023 and 2025</strong>. The stock market plunged. Foreign investors paused. South Korea suspended a $503 million loan. And still, the money flowed—to shell companies, to kickbacks, to luxury cars owned by contractors whose projects were never completed.
+                    </p>
+                    <p>
+                        Yet, hope remains. Thousands rallied at EDSA Shrine. Students walked out of universities. Business groups demanded independent investigations. The Independent Commission for Infrastructure (ICI) was formed. Over 130 bank accounts were frozen. And for the first time in years, the public is watching—and demanding justice.
+                    </p>
+                    <p class="mt-4 fw-bold">
+                        This is not about weather. This is about willpower. About integrity. About choosing people over profit. The flood crisis persists because we allowed it to. But it can end—if we choose to hold those responsible accountable.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <hr class="my-5" />
+
+        <!-- Visuals / Human & Economic Cost -->
+        <section id="visuals">
+            <div class="text-center mb-5">
+                <h2>The Human and Economic Cost</h2>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <p class="text-muted">
+                        Below are sample images representing the human suffering, infrastructure collapse, and civic response to the flood control scandal. Replace these placeholder links with your own high-resolution, contextually accurate photos.
+                    </p>
+                </div>
+            </div>
+            <div class="image-grid">
+                <!-- Image 1: President inspecting a ghost project -->
+                <div>
+                    <img src="https://media.philstar.com/photos/2025/08/20/53587085013212922326986872346892564175574088n_2025-08-20_14-56-11.jpg" alt="President Marcos holds report of nonexistent flood project">
+                    <div class="image-caption">President Marcos Jr. inspects a “ghost project” in Bulacan — a riverwall that exists only on paper, highlighting misused flood control funds.</div>
+                </div>
+                <!-- Image 2: Flooded urban street -->
+                <div>
+                    <img src="https://newsinfo.inquirer.net/files/2025/08/bulacan-flood-08172025.jpg" alt="Flooded street in Metro Manila">
+                    <div class="image-caption">Residents wade through floodwaters in a residential area as drainage systems fail despite billions allocated for flood mitigation</div>
+                </div>
+                <!-- Image 3: Protesters rallying -->
+                <div>
+                    <img src="https://img.bomboradyo.com/newscenter/2025/09/flood-control-projects-failed-during-storms.webp" alt="Crowd protesting flood corruption at EDSA Shrine">
+                    <div class="image-caption">revealing the poor quality of construction and the presence of trash in the compromised waterway.</div>
+                </div>
+                <!-- Image 4: Collapsed structure -->
+                <div>
+                    <img src="https://i0.wp.com/tutubi.ph/wp-content/uploads/2025/08/fcpdpwh.png?fit=1200%2C630&ssl=1" alt="Collapsed flood control structure in Lucena">
+                    <div class="image-caption">A ₱100M flood structure in Lucena collapses — exposing poor construction and possible fraud.</div>
+                </div>
+                <!-- Image 5: Contractor's luxury vehicles -->
+                <div>
+                    <img src="https://www.rappler.com/tachyon/2024/10/farmer-ilocos-julian.jpg" alt="Discaya couple and their luxury vehicles">
+                    <div class="image-caption">the natural environment with the surrounding urban issues of failed infrastructure and potential misuse of funds</div>
+                </div>
+                <!-- Image 6: BIR tax evasion complaint -->
+               <div>
+  <img src="https://www.rappler.com/tachyon/2025/11/Screenshot-2025-11-06-at-2.49.21%E2%80%AFPM.png">
+  <div class="image-caption">
+   rash-filled waterway next to dense informal housing, illustrating the dire environmental and human impact of neglected flood control and sanitation in the community.
+  </div>
+</div>
+
+            </div>
+        </section>
+
+        <hr class="my-5" />
+
+        <!-- Core Issues -->
+        <section id="issues">
+            <div class="text-center mb-5">
+                <h2>Core Issues and Systemic Flaws</h2>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="issue-card card-corruption">
+                        <h5><i class="fas fa-hand-holding-usd text-danger"></i> Corruption & Kickbacks</h5>
+                        <p>“Ghost projects,” substandard construction, and inflated contracts drain public funds. Audits suggest up to 40% of budgets vanish as kickbacks—leaving real infrastructure dangerously underfunded.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="issue-card card-planning">
+                        <h5><i class="fas fa-project-diagram text-warning"></i> Fragmented Planning</h5>
+                        <p>Projects lack watershed-wide coordination. Solutions often shift floodwaters downstream instead of systemic risk reduction—wasting billions and endangering more communities.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12">
+                    <div class="issue-card card-solutions">
+                        <h5><i class="fas fa-leaf text-success"></i> Neglect of Nature-Based Solutions</h5>
+                        <p>Over-reliance on concrete dikes ignores cost-effective, resilient green infrastructure—like wetland restoration and urban greening—that deliver ecological and social co-benefits.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr class="my-5" />
+
+        <!-- Recent News: replaced with a robust horizontal scroll "carousel" -->
+        <section id="recent-news">
+            <div class="container">
+                <h2 class="text-center mb-4">Recent Philippines Flood-Control News</h2>
+
+                <div class="news-section">
+                    <div id="newsTrack" class="news-track" aria-live="polite">
+                        <!-- Card 1 -->
+                        <article class="news-card" role="article">
+                            <img src="https://media.philstar.com/photos/2025/09/02/henrey-alcantara_2025-09-02_19-04-34.jpg" alt="Henry Alcantara">
+                            <div class="caption">
+                                <span class="badge bg-primary">PhilStar</span>
+                                <h5>Ex-DPWH Engineer Returns ₱110M in Flood Scam</h5>
+                                <small>Published: November 28, 2025</small>
+                            </div>
+                        </article>
+
+                        <!-- Card 2 -->
+                        <article class="news-card" role="article">
+                            <img src="https://newsinfo.inquirer.net/files/2025/11/marcos-flood-control-28npv2025-2048x1431.jpg" alt="Ghost project site">
+                            <div class="caption">
+                                <span class="badge bg-warning text-dark">Inquirer</span>
+                                <h5>Tax Evasion Raps Filed vs Bulacan ‘Ghost’ Contractors</h5>
+                                <small>Published: November 28, 2025</small>
+                            </div>
+                        </article>
+
+                        <!-- Card 3 -->
+                        <article class="news-card" role="article">
+                            <img src="https://files01.pna.gov.ph/category-list/2025/08/20/pbbm-flood-control-project-inspection-in-baliwag20-aug-2025pco-photo.jpg" alt="Marcos inspecting project">
+                            <div class="caption">
+                                <span class="badge bg-info">PNA</span>
+                                <h5>DPWH Admits No National Flood Control Master Plan Exists</h5>
+                                <small>Published: September 19, 2025</small>
+                            </div>
+                        </article>
+
+                        <!-- Card 4 -->
+                        <article class="news-card" role="article">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Protest_rally_at_the_EDSA_Shrine_over_the_corruption_regarding_the_flood_control_projects.jpg/500px-Protest_rally_at_the_EDSA_Shrine_over_the_corruption_regarding_the_flood_control_projects.jpg" alt="Protest at EDSA Shrine">
+                            <div class="caption">
+                                <span class="badge bg-danger">AP News</span>
+                                <h5>Hundreds Rally in Manila Against Flood-Control Corruption</h5>
+                                <small>Published: October 29, 2025</small>
+                            </div>
+                        </article>
+
+                        <!-- Card 5 -->
+                        <article class="news-card" role="article">
+                            <img src="https://www.reuters.com/resizer/v2/AUSKFJL4ZBKKNO6V3XXFUW6TXE.jpg?auth=5f381f5c2097bd727dd5dd3c2017a042ed1ab5283d6fd0de1b4f556806629fe9&width=640&quality=80" alt="Flooded informal settlement">
+                            <div class="caption">
+                                <span class="badge bg-dark">Reuters</span>
+                                <h5>Business Groups Demand Independent Probe into Corruption</h5>
+                                <small>Published: September 4, 2025</small>
+                            </div>
+                        </article>
+
+                        <!-- Card 6 -->
+                        <article class="news-card" role="article">
+                            <img src="https://ddc514qh7t05d.cloudfront.net/dA/f65a4058cb5afb8be69fb7097548f8b2/1400w/80q" alt="Flooded city street">
+                            <div class="caption">
+                                <span class="badge bg-success">Context News</span>
+                                <h5>How Flood Control Projects Fail the Poor in the Philippines</h5>
+                                <small>Published: October 29, 2025</small>
+                            </div>
+                        </article>
+                    </div>
+
+                    <!-- Controls -->
+                    <div class="news-controls">
+                        <div class="d-flex justify-content-between align-items-start w-100">
+                            <div class="ms-2">
+                                <button id="newsPrev" class="btn prev" aria-label="Previous"><i class="fas fa-chevron-left"></i></button>
+                            </div>
+                            <div class="me-2">
+                                <button id="newsNext" class="btn next" aria-label="Next"><i class="fas fa-chevron-right"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container text-center">
+            <p class="mb-1">&copy; 2025 Civic Accountability Project</p>
+            <p class="text-muted small">Data sourced from COA, DPWH, Senate Blue Ribbon Committee, and verified news reports.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Smooth scroll for nav links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        window.scrollTo({
+                            top: target.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // News track controls (horizontal scroll carousel)
+            const track = document.getElementById('newsTrack');
+            const prev = document.getElementById('newsPrev');
+            const next = document.getElementById('newsNext');
+
+            // scroll amount equals one card width + gap
+            function getScrollAmount() {
+                const card = track.querySelector('.news-card');
+                if (!card) return 320;
+                const style = getComputedStyle(track);
+                const gap = parseFloat(getComputedStyle(card).marginRight || 0) || 24;
+                return Math.round(card.getBoundingClientRect().width + 24); // 24 ~ gap we used
+            }
+
+            prev.addEventListener('click', () => {
+                track.scrollBy({ left: -getScrollAmount(), behavior: 'smooth' });
+            });
+            next.addEventListener('click', () => {
+                track.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
+            });
+
+            // Optional: keyboard accessibility (left/right)
+            track.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowLeft') prev.click();
+                if (e.key === 'ArrowRight') next.click();
+            });
+
+            // Make the track focusable for keyboard support
+            track.tabIndex = 0;
+        });
+    </script>
+</body>
+</html>
