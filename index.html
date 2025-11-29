@@ -34,6 +34,20 @@
             font-size: 1.4rem;
             letter-spacing: -0.5px;
         }
+        
+        @media (max-width: 576px) {
+            .navbar-brand {
+                font-size: 0.85rem;
+                letter-spacing: -0.3px;
+            }
+        }
+        
+        @media (min-width: 577px) and (max-width: 768px) {
+            .navbar-brand {
+                font-size: 1rem;
+            }
+        }
+        
         .nav-link {
             color: rgba(255, 255, 255, 0.85) !important;
             font-weight: 500;
@@ -128,7 +142,7 @@
         .card-planning h5 { border-left: 4px solid var(--warning); padding-left: 12px; }
         .card-solutions h5 { border-left: 4px solid var(--secondary); padding-left: 12px; }
 
-        /* --- Replaced Carousel with a flexible scrollable "card track" --- */
+        /* News Section */
         .news-section {
             position: relative;
         }
@@ -191,21 +205,6 @@
         .news-controls .prev { position: absolute; left: -10px; }
         .news-controls .next { position: absolute; right: -10px; }
 
-        @media (max-width: 768px) {
-            .hero-section h1 {
-                font-size: 2.25rem;
-            }
-            section {
-                padding: 3rem 0;
-            }
-            h2 {
-                font-size: 1.75rem;
-            }
-            .news-card { flex: 0 0 280px; }
-            .news-controls .prev { left: 4px; }
-            .news-controls .next { right: 4px; }
-        }
-
         /* Human & Economic Cost Images */
         .image-grid {
             display: grid;
@@ -240,6 +239,72 @@
         }
         footer .text-muted {
             color: #a0aec0 !important;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .hero-section h1 {
+                font-size: 2.25rem;
+            }
+            section {
+                padding: 3rem 0;
+            }
+            h2 {
+                font-size: 1.75rem;
+            }
+            .news-card { flex: 0 0 280px; }
+            .news-controls .prev { left: 4px; }
+            .news-controls .next { right: 4px; }
+            
+            /* Better spacing for mobile */
+            .container {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+            
+            /* Make images stack better */
+            .image-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            /* Adjust card padding */
+            .issue-card {
+                padding: 1.25rem;
+            }
+            
+            /* Make news track more mobile-friendly */
+            .news-track {
+                gap: 1rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero-section {
+                height: 60vh;
+            }
+            
+            .hero-section h1 {
+                font-size: 1.75rem;
+            }
+            
+            .hero-section p.lead {
+                font-size: 1rem;
+            }
+            
+            .hero-section .btn {
+                padding: 0.6rem 1.5rem;
+                font-size: 0.9rem;
+            }
+            
+            section {
+                padding: 2rem 0;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            .news-card { flex: 0 0 260px; }
         }
 
     </style>
@@ -285,19 +350,19 @@
             <div class="row">
                 <div class="col-md-12">
                     <p class="fs-5">
-                        The Philippines’ annual flood crisis is not merely a consequence of typhoons or heavy monsoon rains—it is a direct result of systemic corruption, institutional neglect, and a profound lack of accountability within its infrastructure governance. For decades, billions have been allocated for flood mitigation, yet communities continue to drown—not because of nature’s wrath, but because of man-made failure.
+                        The Philippines' annual flood crisis is not merely a consequence of typhoons or heavy monsoon rains—it is a direct result of systemic corruption, institutional neglect, and a profound lack of accountability within its infrastructure governance. For decades, billions have been allocated for flood mitigation, yet communities continue to drown—not because of nature's wrath, but because of man-made failure.
                     </p>
                     <p class="text-muted">
-                        In July 2025, President Ferdinand Marcos Jr. stunned the nation by revealing that <strong>only 15 contractors out of 2,000 had cornered nearly 20% of over ₱500 billion in flood control spending</strong> since 2022. What followed was not just an audit—but a national reckoning. Senate hearings exposed “ghost projects” worth hundreds of millions, contractors who never built anything, and officials who signed off on non-existent structures.
+                        In July 2025, President Ferdinand Marcos Jr. stunned the nation by revealing that <strong>only 15 contractors out of 2,000 had cornered nearly 20% of over ₱500 billion in flood control spending</strong> since 2022. What followed was not just an audit—but a national reckoning. Senate hearings exposed "ghost projects" worth hundreds of millions, contractors who never built anything, and officials who signed off on non-existent structures.
                     </p>
                     <p class="mt-4">
-                        As Senator Risa Hontiveros put it during a Blue Ribbon Committee hearing: “May mga proyekto tuloy na imbes makabawas sa baha, nagdulot pa ng mas malaking baha… May ghost projects din daw na hindi makita, hindi mahanap ng LGU kahit ngayon.” (“There are projects that instead of reducing floods, caused bigger ones… There are ghost projects that even LGUs cannot find today.”)
+                        As Senator Risa Hontiveros put it during a Blue Ribbon Committee hearing: "May mga proyekto tuloy na imbes makabawas sa baha, nagdulot pa ng mas malaking baha… May ghost projects din daw na hindi makita, hindi mahanap ng LGU kahit ngayon." ("There are projects that instead of reducing floods, caused bigger ones… There are ghost projects that even LGUs cannot find today.")
                     </p>
                     <p>
-                        DPWH Secretary Vince Dizon, when asked if there was a master plan, simply replied: <strong>“Wala po.”</strong> No unified strategy. No watershed-level coordination. No oversight. Just contracts—awarded, paid, and vanished.
+                        DPWH Secretary Vince Dizon, when asked if there was a master plan, simply replied: <strong>"Wala po."</strong> No unified strategy. No watershed-level coordination. No oversight. Just contracts—awarded, paid, and vanished.
                     </p>
                     <p>
-                        The human cost is staggering. A ₱100 million project in Lucena, Quezon, collapsed during a storm, killing families. In Bulacan, President Marcos held up a report for a ₱55.7 million riverwall project—only to reveal it didn’t exist. “A lousy flood control project that collapsed during the flood that killed a family — I mean, how can you live with that?” he said in his podcast. “I can’t live with it.”
+                        The human cost is staggering. A ₱100 million project in Lucena, Quezon, collapsed during a storm, killing families. In Bulacan, President Marcos held up a report for a ₱55.7 million riverwall project—only to reveal it didn't exist. "A lousy flood control project that collapsed during the flood that killed a family — I mean, how can you live with that?" he said in his podcast. "I can't live with it."
                     </p>
                     <p>
                         The economic toll is equally devastating. Finance Secretary Ralph Recto estimated that anomalous flood projects cost the economy <strong>₱118 billion between 2023 and 2025</strong>. The stock market plunged. Foreign investors paused. South Korea suspended a $503 million loan. And still, the money flowed—to shell companies, to kickbacks, to luxury cars owned by contractors whose projects were never completed.
@@ -330,7 +395,7 @@
                 <!-- Image 1: President inspecting a ghost project -->
                 <div>
                     <img src="https://media.philstar.com/photos/2025/08/20/53587085013212922326986872346892564175574088n_2025-08-20_14-56-11.jpg" alt="President Marcos holds report of nonexistent flood project">
-                    <div class="image-caption">President Marcos Jr. inspects a “ghost project” in Bulacan — a riverwall that exists only on paper, highlighting misused flood control funds.</div>
+                    <div class="image-caption">President Marcos Jr. inspects a "ghost project" in Bulacan — a riverwall that exists only on paper, highlighting misused flood control funds.</div>
                 </div>
                 <!-- Image 2: Flooded urban street -->
                 <div>
@@ -354,12 +419,11 @@
                 </div>
                 <!-- Image 6: BIR tax evasion complaint -->
                <div>
-  <img src="https://www.rappler.com/tachyon/2025/11/Screenshot-2025-11-06-at-2.49.21%E2%80%AFPM.png">
-  <div class="image-caption">
-   rash-filled waterway next to dense informal housing, illustrating the dire environmental and human impact of neglected flood control and sanitation in the community.
-  </div>
-</div>
-
+                  <img src="https://www.rappler.com/tachyon/2025/11/Screenshot-2025-11-06-at-2.49.21%E2%80%AFPM.png">
+                  <div class="image-caption">
+                   Trash-filled waterway next to dense informal housing, illustrating the dire environmental and human impact of neglected flood control and sanitation in the community.
+                  </div>
+                </div>
             </div>
         </section>
 
@@ -374,7 +438,7 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="issue-card card-corruption">
                         <h5><i class="fas fa-hand-holding-usd text-danger"></i> Corruption & Kickbacks</h5>
-                        <p>“Ghost projects,” substandard construction, and inflated contracts drain public funds. Audits suggest up to 40% of budgets vanish as kickbacks—leaving real infrastructure dangerously underfunded.</p>
+                        <p>"Ghost projects," substandard construction, and inflated contracts drain public funds. Audits suggest up to 40% of budgets vanish as kickbacks—leaving real infrastructure dangerously underfunded.</p>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6">
@@ -416,7 +480,7 @@
                             <img src="https://newsinfo.inquirer.net/files/2025/11/marcos-flood-control-28npv2025-2048x1431.jpg" alt="Ghost project site">
                             <div class="caption">
                                 <span class="badge bg-warning text-dark">Inquirer</span>
-                                <h5>Tax Evasion Raps Filed vs Bulacan ‘Ghost’ Contractors</h5>
+                                <h5>Tax Evasion Raps Filed vs Bulacan 'Ghost' Contractors</h5>
                                 <small>Published: November 28, 2025</small>
                             </div>
                         </article>
@@ -516,7 +580,7 @@
                 if (!card) return 320;
                 const style = getComputedStyle(track);
                 const gap = parseFloat(getComputedStyle(card).marginRight || 0) || 24;
-                return Math.round(card.getBoundingClientRect().width + 24); // 24 ~ gap we used
+                return Math.round(card.getBoundingClientRect().width + 24);
             }
 
             prev.addEventListener('click', () => {
